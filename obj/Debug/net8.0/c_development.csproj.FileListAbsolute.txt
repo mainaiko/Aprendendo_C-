@@ -1,0 +1,14 @@
+/home/natalia/c_development/bin/Debug/net8.0/c_development
+/home/natalia/c_development/bin/Debug/net8.0/c_development.deps.json
+/home/natalia/c_development/bin/Debug/net8.0/c_development.runtimeconfig.json
+/home/natalia/c_development/bin/Debug/net8.0/c_development.dll
+/home/natalia/c_development/bin/Debug/net8.0/c_development.pdb
+/home/natalia/c_development/obj/Debug/net8.0/c_development.GeneratedMSBuildEditorConfig.editorconfig
+/home/natalia/c_development/obj/Debug/net8.0/c_development.AssemblyInfoInputs.cache
+/home/natalia/c_development/obj/Debug/net8.0/c_development.AssemblyInfo.cs
+/home/natalia/c_development/obj/Debug/net8.0/c_development.csproj.CoreCompileInputs.cache
+/home/natalia/c_development/obj/Debug/net8.0/c_development.dll
+/home/natalia/c_development/obj/Debug/net8.0/refint/c_development.dll
+/home/natalia/c_development/obj/Debug/net8.0/c_development.pdb
+/home/natalia/c_development/obj/Debug/net8.0/c_development.genruntimeconfig.cache
+/home/natalia/c_development/obj/Debug/net8.0/ref/c_development.dll
