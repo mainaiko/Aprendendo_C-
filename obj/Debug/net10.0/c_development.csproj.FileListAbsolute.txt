@@ -12,3 +12,4 @@
 /home/natalia/c_development/obj/Debug/net10.0/c_development.pdb
 /home/natalia/c_development/obj/Debug/net10.0/c_development.genruntimeconfig.cache
 /home/natalia/c_development/obj/Debug/net10.0/ref/c_development.dll
+/home/natalia/c_development/obj/Debug/net10.0/c_development.sourcelink.json
