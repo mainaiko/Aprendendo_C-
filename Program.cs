@@ -1,6 +1,13 @@
 ﻿// variaveis
+using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
+
 string mensagem = "🅂 🄲 🅁 🄴 🄴 🄽  🅂 🄾 🅄 🄽🄳";
-List<string> bandas = new List<string>();
+//List<string> bandas = new List<string>();
+
+// dictionary guarda um valor, associado a uma chave. Ex: chave: "Queen", valor: [10, 9, 8]
+Dictionary<string, List<int>> bandas = new Dictionary<string, List<int>>(StringComparer.OrdinalIgnoreCase);
+bandas.Add("Queen", [10, 9, 8]);
 
 // void indica que nao espero retorno da função
 // @ no inicio de um texto é chamado de verbatim literal
@@ -33,10 +40,10 @@ void ExibirOpcoesMenu()
             MostrarBandas();
             break;
         case 3:
-            Console.WriteLine("avaliar uma banda");
+            AvaliarUmaBanda();
             break;
         case 4:
-            Console.WriteLine("exibir a media de uma banda");
+            MediaDaBanda();
             break;
         case 5:
             Console.WriteLine("Volte quando quiser :)");
@@ -50,10 +57,10 @@ void ExibirOpcoesMenu()
 void RegistrarBanda()
 {
     Console.Clear();
-    Console.WriteLine("Registro de banda");
+    ExibirTituloDaOpcao("Registro das bandas");
     Console.Write("Digite o nome da banda: ");
     string? nomeBanda = Console.ReadLine();
-    bandas.Add(nomeBanda);
+    bandas.Add(nomeBanda, []);
     Console.WriteLine($"Banda {nomeBanda} registrada com sucesso!");
     Thread.Sleep(2000);
     Console.Clear();
@@ -63,9 +70,9 @@ void RegistrarBanda()
 void MostrarBandas()
 {
     Console.Clear();
-    Console.WriteLine("Exibindo bandas registradas");
+    ExibirTituloDaOpcao("Exibindo bandas registradas");
     // foreach - forma mais simples de percorrer uma coleção
-    foreach (string banda in bandas)
+    foreach (string banda in bandas.Keys)
     {
         Console.WriteLine($"Banda: {banda}");
     }
@@ -80,97 +87,65 @@ void MostrarBandas()
     ExibirOpcoesMenu();
 }
 
-// teste de raciocinio 1
-//void JogoDeAdivinha()
-//{
-//    Random aleatorio = new Random();
-//    int numeroSecreto = aleatorio.Next(1, 101);
-//
-//    do
-//    {
-//        Console.Write("Digite um número entre 1 e 100: ");
-//        int chute = int.Parse(Console.ReadLine());
-//
-//        if (chute == numeroSecreto)
-//        {
-//            Console.WriteLine("Parabéns! Você acertou o número.");
-//            break;
-//        }
-//        else if (chute < numeroSecreto)
-//        {
-//            Console.WriteLine("O número é maior.");
-//        }
-//        else
-//        {
-//            Console.WriteLine("O número é menor.");
-////        }
-////
-////    } while (true);
-////
-////    Console.WriteLine("O jogo acabou. Você acertou o número secreto!");
-////}
+// função que recebe o titulo e o melhora para seguir um padrão visual do app
+void ExibirTituloDaOpcao(string titulo)
+{
+    int quantidadeDeLetras = titulo.Length;
+    string tracejado = string.Empty.PadLeft(quantidadeDeLetras, '*');
 
-// teste de raciocionio 2
-//void Teste()
-//{
-//
-//    do
-//    {
-//        Console.Clear();
-//        Console.WriteLine("Bem vindo a calculadora");
-//        Console.WriteLine("Qual operação deseja fazer?");
-//        Console.WriteLine("1 - Soma");
-//        Console.WriteLine("2 - Subtração");
-//        Console.WriteLine("3 - Multiplicação");
-//        Console.WriteLine("4 - Divisão");
-//        Console.WriteLine("5 - Sair");
-//        Console.Write("Opção: ");
-//        string? operacao = Console.ReadLine();
-//
-//        if (operacao == "5")
-//        {
-//            break;
-//        }
-//
-//        if (operacao != "1" && operacao != "2" && operacao != "3" && operacao != "4")
-//        {
-//            Console.WriteLine("Opção inválida!");
-//            Console.WriteLine("Pressione qualquer tecla para continuar...");
-//            Console.ReadKey();
-//            continue;
-//        }
-//
-//        Console.Write("Digite o primeiro numero da operação: ");
-//        string? numero1 = Console.ReadLine();
-//        int numeroConvertido1 = int.Parse(numero1 ?? "0");
-//        
-//        Console.Write("Digite o segundo numero da operação: ");
-//        string? numero2 = Console.ReadLine();
-//        int numeroConvertido2 = int.Parse(numero2 ?? "0");
-//
-//        if (operacao == "1")
-//        {
-//            Console.WriteLine($"O resultado da soma é: {numeroConvertido1 + numeroConvertido2}");
-//        }
-//        else if (operacao == "2")
-//        {
-//            Console.WriteLine($"O resultado da subtração é: {numeroConvertido1 - numeroConvertido2}");
-//        }
-//        else if (operacao == "3")
-//        {
-//            Console.WriteLine($"O resultado da multiplicação é: {numeroConvertido1 * numeroConvertido2}");
-//        }
-//        else if (operacao == "4")
-//        {
-//            Console.WriteLine($"O resultado da divisão é: {numeroConvertido1 / numeroConvertido2}");
-//        }
-//
-//        Console.WriteLine("Pressione qualquer tecla para continuar...");
-//        Console.ReadKey();
-//    } while (true);
-//}
-//
-//Teste();
-//JogoDeAdivinha();
+    Console.WriteLine(tracejado);
+    Console.WriteLine(titulo);
+    Console.WriteLine(tracejado + "\n");
+}
+
+void AvaliarUmaBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpcao("Avaliar uma banda");
+    Console.Write("Digite o nome da banda: ");
+    string? nomeBanda = Console.ReadLine();
+
+    if (bandas.ContainsKey(nomeBanda))
+    {
+        Console.Write("Digite a nota que deseja dar para a banda (0 a 10): ");
+        string? notaString = Console.ReadLine();
+        int notaConvertida = int.Parse(notaString);
+        bandas[nomeBanda].Add(notaConvertida);
+        Console.WriteLine($"Banda {nomeBanda} avaliada com sucesso!");
+        Thread.Sleep(2000);
+        Console.Clear();
+        ExibirOpcoesMenu();
+    }
+    else
+    {
+        Console.WriteLine($"Banda {nomeBanda} não encontrada!");
+        Console.WriteLine("Digite uma tecla para voltar ao menu");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesMenu();
+    }
+
+}
+
+void MediaDaBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpcao("Média da banda");
+    Console.Write("Digite o nome da banda: ");
+    string? nomeBanda = Console.ReadLine();
+
+    if (bandas.ContainsKey(nomeBanda))
+    {
+        Console.WriteLine($"Média da banda {nomeBanda}: {bandas[nomeBanda].Average()}");
+    }
+    else
+    {
+        Console.WriteLine("Banda não encontrada");
+    }
+    Console.WriteLine("Digite uma tecla para voltar ao menu");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirOpcoesMenu();
+}
 
 ExibirOpcoesMenu();
